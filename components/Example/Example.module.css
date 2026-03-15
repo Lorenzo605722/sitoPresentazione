@@ -1,0 +1,9 @@
+/* Esempio CSS Module - rinomina o elimina questo componente */
+.container {
+  padding: 1rem;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}

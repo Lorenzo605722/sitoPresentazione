@@ -1,0 +1,250 @@
+.section {
+  padding: var(--spacing-section) var(--spacing-page);
+  max-width: var(--content-narrow);
+  margin: 0 auto;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Finestra terminale: stile allineato alle card Progetti (sfondo scuro, angoli arrotondati, ombra morbida) */
+.terminal {
+  background: #2a2f3d;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.terminal:focus-visible {
+  outline: 2px solid #6b93f7;
+  outline-offset: 2px;
+}
+
+.terminal:hover {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+}
+
+.terminal:not(.terminalOpen):hover {
+  transform: translateY(-2px);
+}
+
+.terminalOpen {
+  cursor: default;
+}
+
+/* Barra superiore: pallini + titolo (come header card) */
+.terminalHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: #252a33;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3d3d3d;
+}
+
+.dotButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.dotButton:hover {
+  transform: scale(1.15);
+  opacity: 0.9;
+}
+
+.dotButton:focus-visible {
+  outline: 2px solid rgba(255, 95, 86, 0.8);
+  outline-offset: 2px;
+}
+
+.dotButton .dot {
+  background: #ff5f56;
+}
+
+.dots .dot:nth-child(2) {
+  background: #ffbd2e;
+}
+
+.dots .dot:nth-child(3) {
+  background: #27c93f;
+}
+
+.terminalTitle {
+  font-size: 0.8125rem;
+  color: #b0b0b0;
+  font-family: var(--font-sans, system-ui, sans-serif);
+}
+
+/* Pannello espandibile: transizione fluida, altezza che si adatta al contenuto senza sbalzi */
+.terminalPanel {
+  overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Stato chiuso: invito al clic */
+.terminalClosed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  padding: var(--spacing-xl);
+}
+
+.terminalCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9375rem;
+  color: #b0b0b0;
+  transition: color 0.2s ease;
+}
+
+.terminal:hover .terminalCta {
+  color: #c0c0c0;
+}
+
+.terminalCtaIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: #6b93f7;
+}
+
+/* Stato aperto: output tipo terminale; min-height evita sbalzi; tipografia come card */
+.terminalBody {
+  padding: 20px 24px 24px;
+  min-height: 280px;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  color: #c0c0c0;
+  text-align: left;
+  cursor: default;
+  box-sizing: border-box;
+}
+
+.terminalLine {
+  margin-bottom: var(--spacing-sm);
+}
+
+.terminalLineSystem {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin-bottom: var(--spacing-md);
+}
+
+.prompt {
+  color: #6b93f7;
+  margin-right: 6px;
+}
+
+.command {
+  color: #85a8ff;
+}
+
+.terminalOutput {
+  color: #c0c0c0;
+  padding-left: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.terminalOutput strong {
+  color: #f7fafc;
+  font-weight: 600;
+}
+
+.closeBtn {
+  display: block;
+  margin-top: var(--spacing-lg);
+  padding: 8px 16px;
+  font-size: 0.8125rem;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-weight: 500;
+  color: #85a8ff;
+  background: rgba(107, 147, 247, 0.12);
+  border: 1px solid rgba(107, 147, 247, 0.25);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.closeBtn:hover {
+  background: rgba(107, 147, 247, 0.2);
+  color: #a5c4ff;
+  border-color: rgba(107, 147, 247, 0.4);
+}
+
+.closeBtn:focus-visible {
+  outline: 2px solid #6b93f7;
+  outline-offset: 2px;
+}
+
+/* Cursore typewriter: blu come link card */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: #6b93f7;
+  animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .section {
+    padding: var(--spacing-xl) var(--spacing-page);
+  }
+
+  .terminalClosed {
+    min-height: 72px;
+    padding: var(--spacing-lg);
+  }
+
+  .terminalCta {
+    font-size: 0.875rem;
+  }
+
+  .terminalBody {
+    padding: 16px 18px 20px;
+    font-size: 0.875rem;
+  }
+}

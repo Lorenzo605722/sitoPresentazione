@@ -1,0 +1,214 @@
+/* Card = finestra terminale (due pagine aperte) */
+.terminalWindow {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #2a2f3d;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.terminalWindow:hover {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Barra titolo: pallini + nome file */
+.terminalHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  background: #252a33;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.dots {
+  display: flex;
+  gap: 5px;
+}
+
+.dotRed {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff5f56;
+}
+
+.dotYellow {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffbd2e;
+}
+
+.dotGreen {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #27c93f;
+}
+
+.terminalTitle {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+}
+
+/* Corpo: output tipo terminale */
+.terminalBody {
+  padding: 14px 18px 18px;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: #c0c0c0;
+  min-height: 120px;
+}
+
+.terminalLine {
+  margin-bottom: 6px;
+}
+
+.prompt {
+  color: #6b93f7;
+  margin-right: 6px;
+}
+
+.command {
+  color: #85a8ff;
+}
+
+.muted {
+  color: #6b7280;
+}
+
+.techList {
+  color: #9ca3af;
+  font-size: 0.75rem;
+}
+
+.terminalOutput {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.outputLine {
+  display: block;
+  color: #b0b0b0;
+  margin-bottom: 2px;
+}
+
+.description {
+  margin: 6px 0 0;
+  color: #c0c0c0;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.techIcons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 12px;
+}
+
+.techLogo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: grayscale(1) brightness(1.1);
+  opacity: 0.9;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.terminalWindow:hover .techLogo {
+  filter: grayscale(0) brightness(1.1);
+  opacity: 1;
+}
+
+.techLogoSvg {
+  width: 100%;
+  height: 100%;
+  color: #9ca3af;
+}
+
+.terminalWindow:hover .techLogoSvg {
+  color: #85a8ff;
+}
+
+.link {
+  color: #6b93f7;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: #85a8ff;
+  text-decoration: underline;
+}
+
+/* Area anteprima: come “frame” nel terminale */
+.previewFrame {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  min-height: 140px;
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #1e2128;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  padding: 0;
+}
+
+.previewLabel {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  font-size: 0.65rem;
+  color: #6b7280;
+  z-index: 1;
+}
+
+.previewFade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 50%,
+    rgba(42, 47, 61, 0.6) 85%,
+    #2a2f3d 100%
+  );
+  pointer-events: none;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .terminalHeader {
+    padding: 8px 12px;
+  }
+
+  .terminalBody {
+    padding: 12px 14px 14px;
+    font-size: 0.75rem;
+  }
+
+  .terminalTitle {
+    font-size: 0.7rem;
+  }
+
+  .previewFrame {
+    min-height: 120px;
+  }
+}

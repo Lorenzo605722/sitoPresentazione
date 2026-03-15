@@ -1,0 +1,79 @@
+.box {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  padding: 1.25rem var(--spacing-lg);
+  background: var(--bg-terminal);
+  color: var(--text-terminal);
+  border-radius: var(--radius-lg);
+  font-family: "Consolas", "Monaco", "JetBrains Mono", monospace;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-dark);
+}
+
+/* Nuvoletta: triangolino in basso a sinistra */
+.box::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 24px;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid var(--bg-terminal);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.prompt {
+  color: var(--accent-terminal);
+  font-weight: 600;
+  font-size: 0.8125rem;
+}
+
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: var(--accent-terminal);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.quote {
+  margin: 0;
+  font-style: italic;
+  color: var(--text-terminal-muted);
+}
+
+.quote strong {
+  color: var(--text-terminal);
+  font-style: normal;
+}
+
+/* Mobile: box a tutta larghezza, padding ridotto */
+@media (max-width: 640px) {
+  .box {
+    padding: var(--spacing-md) var(--spacing-page);
+    max-width: 100%;
+  }
+}

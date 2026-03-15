@@ -1,0 +1,130 @@
+.box {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  max-width: 380px;
+  padding: 1.25rem var(--spacing-lg);
+  background: var(--bg-terminal);
+  color: var(--text-terminal);
+  border-radius: var(--radius-lg);
+  font-family: "Consolas", "Monaco", "JetBrains Mono", monospace;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-dark);
+  transition: box-shadow 0.3s ease;
+}
+
+.box:hover {
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    0 4px 16px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.box::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 24px;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid var(--bg-terminal);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+}
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.prompt {
+  font-weight: 600;
+  font-size: 0.8125rem;
+}
+
+.promptName {
+  color: #a7f3d0;
+}
+
+.promptAt {
+  color: var(--accent-terminal);
+}
+
+.promptHost {
+  color: var(--accent-terminal);
+}
+
+.watermark {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: var(--text-terminal);
+  opacity: 0.3;
+  font-weight: 500;
+}
+
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: var(--accent-terminal);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+  transition: background 0.25s ease;
+}
+
+.box:hover .cursor {
+  background: #d4a853;
+}
+
+.badge {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.75rem;
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  color: #d4a853;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-weight: 500;
+}
+
+.box:hover .badge {
+  opacity: 1;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.quote {
+  margin: 0;
+  font-style: italic;
+  color: var(--text-terminal-muted);
+}
+
+.quote strong {
+  color: var(--text-terminal);
+  font-style: normal;
+}
+
+@media (max-width: 640px) {
+  .box {
+    padding: var(--spacing-md) var(--spacing-page);
+    max-width: 100%;
+  }
+}

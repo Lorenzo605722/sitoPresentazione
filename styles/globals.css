@@ -1,0 +1,85 @@
+@import "./variables.css";
+
+/* CSS globali – variabili e stili di base */
+html {
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  color: var(--text-color);
+  background-color: #1a1d24;
+  line-height: 1.5;
+  position: relative;
+}
+
+/* Layer per animazione di sfondo (5s in loop): sostituisci il contenuto con la tua animazione */
+.bgAnimationLayer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Video di sfondo: copre tutto lo schermo, in loop */
+.bgAnimationVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Contenuto sopra lo sfondo animato */
+.mainContentLayer {
+  position: relative;
+  z-index: 0;
+}
+
+/* Margini coerenti e ampi tra le sezioni (Hero → Progetti → About Me → Contatti) */
+.mainSections > section {
+  margin-bottom: var(--section-gap);
+}
+
+.mainSections > section:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .mainSections > section {
+    margin-bottom: 3.5rem;
+  }
+}
+
+/* Contesto sopra i tre fumetti (Dante, Giotto, Leonardo) */
+.dragonsSectionWrapper {
+  padding: 0 1.5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dragonsLoadingLabel {
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 0.8rem;
+  color: #d1d5db;
+  margin: 0 0 0.75rem;
+  padding-left: 0.5rem;
+  text-align: left;
+  animation: dragonsLabelPulse 3.5s ease-in-out infinite;
+}
+
+@keyframes dragonsLabelPulse {
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 1;
+  }
+}
