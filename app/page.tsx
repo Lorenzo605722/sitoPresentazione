@@ -24,7 +24,7 @@ export default function Home() {
         <HeroSection />
         <div className="dragonsSectionWrapper">
           <p className="dragonsLoadingLabel" aria-live="polite">
-            // Fetching real-time strategic insights from QuotaApp engine...
+            {`// Fetching real-time strategic insights from QuotaApp engine...`}
           </p>
           <div style={dragonsSectionStyle} role="list" aria-label="I tre draghi di QuotaApp">
             <DragonSays name="Dante" quotes={danteQuotes} />
