@@ -117,7 +117,7 @@ export function AboutSection() {
 
         <div
           className={styles.terminalPanel}
-          style={{ maxHeight: isOpen ? "520px" : "80px" }}
+          style={{ maxHeight: isOpen ? "900px" : "80px" }}
           aria-hidden={false}
         >
           {!isOpen ? (
