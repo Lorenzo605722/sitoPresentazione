@@ -13,6 +13,7 @@
   width: 100%;
   max-width: 640px;
   margin: 0 auto;
+  text-align: center;
 }
 
 .title {
@@ -88,6 +89,199 @@
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5), 0 0 12px rgba(0, 0, 0, 0.2);
   margin: 0;
   max-width: 100%;
+}
+
+/* Terminale interattivo (blocco centrato nella Hero) */
+.terminal {
+  background: #2a2f3d;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  margin: var(--spacing-lg) auto 0;
+  text-align: left;
+  max-width: 100%;
+  width: 100%;
+}
+
+.terminalHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: #252a33;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.dots {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.dotRed,
+.dotYellow,
+.dotGreen {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dotRed {
+  background: #ff5f56;
+}
+
+.dotYellow {
+  background: #ffbd2e;
+}
+
+.dotGreen {
+  background: #27c93f;
+}
+
+.terminalTitle {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.terminalBody {
+  padding: 1rem 1.25rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: clamp(0.8125rem, 1.8vw, 0.9375rem);
+  line-height: 1.85;
+}
+
+.terminalLine {
+  margin-bottom: 0.875rem;
+  color: #e2e8f0;
+}
+
+.prompt {
+  color: #27c93f;
+  margin-right: 0.25rem;
+}
+
+.command {
+  color: #93c5fd;
+}
+
+.terminalLineSystem {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  color: #9ca3af;
+  font-size: 0.9em;
+}
+
+/* Tag per messaggi di sistema (es. [SYSTEM]) */
+.tag {
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+/* Colore verde per caricamento completato (100%) */
+.success {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.loadingPercent {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.spinner {
+  display: inline-block;
+  min-width: 1ch;
+  color: #93c5fd;
+}
+
+/* Animazione spin: cicla i caratteri / - \ | tramite ::after */
+@keyframes spin {
+  0%,
+  100% {
+    content: "/";
+  }
+  25% {
+    content: "-";
+  }
+  50% {
+    content: "\\";
+  }
+  75% {
+    content: "|";
+  }
+}
+
+.spin::after {
+  content: "/";
+  animation: spin 1.2s steps(4) infinite;
+  margin-left: 0.25em;
+  color: inherit;
+}
+
+.terminalOutput {
+  color: #d1d5db;
+}
+
+.outputBlock {
+  margin-bottom: 1.25rem;
+  line-height: 1.85;
+}
+
+.outputBlock:last-child {
+  margin-bottom: 0;
+}
+
+.outputLabel {
+  color: #a7f3d0;
+  font-weight: 500;
+}
+
+.outputText {
+  color: #e2e8f0;
+  line-height: 1.85;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.cursorTerminal {
+  display: inline-block;
+  width: 0.6em;
+  height: 1em;
+  margin-left: 0.05em;
+  background: var(--primary-color, #3b82f6);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+}
+
+.readMoreWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 1rem 0 0.75rem;
+}
+
+.readMoreBtn {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #93c5fd;
+  background: transparent;
+  border: 1px solid #93c5fd;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.readMoreBtn:hover {
+  color: #1e293b;
+  background: #93c5fd;
+  border-color: #93c5fd;
+}
+
+.readMoreBtn:focus-visible {
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
 }
 
 .subtitle {
