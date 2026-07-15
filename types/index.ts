@@ -74,7 +74,7 @@ export type HeroSpaceStatusChip = string;
 
 /** Props del componente HeroSpace */
 export interface HeroSpaceProps {
-  /** Etichetta superiore con effetto decrypt (default: "// SYSTEM ONLINE") */
+  /** Etichetta superiore con effetto decrypt (default: "SYSTEM ONLINE") */
   eyebrow?: string;
   /** Titolo principale (default: "Benvenuti") */
   title?: string;

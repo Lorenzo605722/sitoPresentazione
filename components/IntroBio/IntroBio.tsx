@@ -9,7 +9,7 @@ export interface IntroBioProps {
 }
 
 export function IntroBio({
-  label = "// PROFILO",
+  label = "PROFILO",
   bio = DEFAULT_BIO,
 }: IntroBioProps) {
   return (

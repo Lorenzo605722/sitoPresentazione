@@ -80,7 +80,7 @@ export function HudCarousel({ images, label = "Screenshot moduli" }: HudCarousel
       onTouchEnd={onTouchEnd}
     >
       <div className={styles.meta}>
-        <span className={styles.metaLabel}>// VIEW</span>
+        <span className={styles.metaLabel}>VIEW</span>
         <span className={styles.metaCaption}>
           {current.caption ?? `Slide ${index + 1}`}
         </span>

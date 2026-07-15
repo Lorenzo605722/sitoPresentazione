@@ -75,7 +75,7 @@ function clamp01(value: number): number {
 }
 
 export function HeroSpace({
-  eyebrow = "// SYSTEM ONLINE",
+  eyebrow = "SYSTEM ONLINE",
   title = "Benvenuti",
   subtitle = "Junior TS Developer",
   statusChips = DEFAULT_HERO_STATUS_CHIPS,
