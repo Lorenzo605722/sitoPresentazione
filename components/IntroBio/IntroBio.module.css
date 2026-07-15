@@ -1,0 +1,50 @@
+.section {
+  background: transparent;
+  padding: var(--spacing-2xl) var(--spacing-page) var(--spacing-xl);
+}
+
+.wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.label {
+  margin: 0 0 var(--spacing-md);
+  font-family: var(--font-hud-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.bio {
+  margin: 0;
+  font-family: var(--font-hud-body);
+  font-size: clamp(0.95rem, 2.1vw, 1.1rem);
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  text-wrap: pretty;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--spacing-xl) var(--spacing-page) var(--spacing-lg);
+  }
+
+  .bio {
+    line-height: 1.7;
+    text-align: left;
+  }
+
+  .wrapper {
+    text-align: left;
+  }
+
+  .label {
+    text-align: left;
+  }
+}

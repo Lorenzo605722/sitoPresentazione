@@ -4,24 +4,18 @@
   min-width: 0;
   max-width: 380px;
   padding: 1.25rem var(--spacing-lg);
-  background: var(--bg-terminal);
-  color: var(--text-terminal);
+  background: var(--bg-card);
+  color: var(--text-color);
   border-radius: var(--radius-lg);
-  font-family: "Consolas", "Monaco", "JetBrains Mono", monospace;
   font-size: 0.9375rem;
   line-height: 1.6;
-  box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--border-dark);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-color);
   transition: box-shadow 0.3s ease;
 }
 
 .box:hover {
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.45),
-    0 4px 16px rgba(0, 0, 0, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .box::after {
@@ -33,8 +27,8 @@
   height: 0;
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
-  border-top: 12px solid var(--bg-terminal);
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+  border-top: 12px solid var(--bg-card);
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08));
 }
 
 .header {
@@ -44,7 +38,7 @@
   gap: var(--spacing-sm);
   margin-bottom: var(--spacing-md);
   padding-bottom: var(--spacing-sm);
-  border-bottom: 1px solid var(--border-dark);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .prompt {
@@ -53,15 +47,15 @@
 }
 
 .promptName {
-  color: #a7f3d0;
+  color: var(--text-color);
 }
 
 .promptAt {
-  color: var(--accent-terminal);
+  color: var(--primary-color);
 }
 
 .promptHost {
-  color: var(--accent-terminal);
+  color: var(--primary-color);
 }
 
 .watermark {
@@ -70,8 +64,8 @@
   right: 0;
   font-size: 0.6rem;
   letter-spacing: 0.05em;
-  color: var(--text-terminal);
-  opacity: 0.3;
+  color: var(--text-muted-light);
+  opacity: 0.5;
   font-weight: 500;
 }
 
@@ -79,14 +73,10 @@
   display: inline-block;
   width: 8px;
   height: 1em;
-  background: var(--accent-terminal);
+  background: var(--primary-color);
   animation: blink 1s step-end infinite;
   vertical-align: text-bottom;
   transition: background 0.25s ease;
-}
-
-.box:hover .cursor {
-  background: #d4a853;
 }
 
 .badge {
@@ -95,7 +85,7 @@
   right: 0.75rem;
   font-size: 0.5rem;
   letter-spacing: 0.08em;
-  color: #d4a853;
+  color: var(--text-muted);
   opacity: 0;
   transition: opacity 0.3s ease;
   font-weight: 500;
@@ -114,11 +104,11 @@
 .quote {
   margin: 0;
   font-style: italic;
-  color: var(--text-terminal-muted);
+  color: var(--text-muted);
 }
 
 .quote strong {
-  color: var(--text-terminal);
+  color: var(--text-color);
   font-style: normal;
 }
 

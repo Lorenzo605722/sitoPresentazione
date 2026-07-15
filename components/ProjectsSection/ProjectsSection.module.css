@@ -2,38 +2,69 @@
   padding: var(--spacing-section) var(--spacing-page);
   max-width: var(--content-max-width);
   margin: 0 auto;
-  text-align: center;
+  background: transparent;
 }
 
-/* Wrapper unico: titolo "Progetti" e griglia card sullo stesso asse centrato */
 .wrapper {
-  max-width: 540px;
+  max-width: 1040px;
   margin: 0 auto;
 }
 
 .title {
+  font-family: var(--font-hud-title);
+  font-weight: var(--font-hud-weight-bold);
   font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 800;
   letter-spacing: 0.08em;
-  margin: 0 0 var(--spacing-lg);
-  color: #f7fafc;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 24px rgba(0, 0, 0, 0.25);
   text-transform: uppercase;
+  color: var(--text);
+  text-shadow: 0 0 24px color-mix(in srgb, var(--accent) 20%, transparent);
+  margin: 0 0 var(--spacing-lg);
+  text-align: center;
+}
+
+.panel {
+  border: 1px solid var(--accent-dim);
+  background: color-mix(in srgb, var(--bg-panel) 88%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  clip-path: polygon(
+    12px 0,
+    100% 0,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    0 100%,
+    0 12px
+  );
+  padding: var(--spacing-xl);
 }
 
 .grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--spacing-lg);
+  min-height: 160px;
 }
 
-/* Desktop: griglia a due colonne, wrapper più largo per allineare titolo e card */
-@media (min-width: 768px) {
-  .wrapper {
-    max-width: 880px;
-  }
+.item {
+  min-width: 0;
+}
 
+.itemFeatured {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 768px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--spacing-xl) var(--spacing-page);
+  }
+
+  .panel {
+    padding: var(--spacing-lg);
   }
 }

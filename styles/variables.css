@@ -4,43 +4,33 @@
  */
 
 :root {
-  /* Colori principali */
-  --primary-color: #2563eb;
-  --primary-hover: #1d4ed8;
-  --primary-shadow: rgba(37, 99, 235, 0.35);
-  /** Blu TypeScript (hover icone contatti) */
+  /* Alias legacy → tema HUD (evita residui bianchi) */
+  --primary-color: var(--accent);
+  --primary-hover: color-mix(in srgb, var(--accent) 80%, white);
+  --primary-shadow: color-mix(in srgb, var(--accent) 35%, transparent);
   --ts-blue: #3178c6;
 
-  /* Sfondo e superfici */
-  --bg-color: #ffffff;
-  --bg-card: #ffffff;
-  /** Sfondo card progetti (tema scuro, leggermente diverso dalla pagina) */
-  --card-bg-dark: #2d3748;
-  --card-bg-dark-hover: #374151;
-  --bg-muted: #f3f4f6;
-  --bg-navbar: #ffffff;
-  --bg-terminal: #1e1e1e;
+  --bg-color: var(--bg);
+  --bg-card: var(--bg-panel);
+  --card-bg-dark: color-mix(in srgb, var(--bg-panel) 90%, var(--bg));
+  --card-bg-dark-hover: color-mix(in srgb, var(--bg-panel) 80%, var(--accent) 6%);
+  --bg-muted: color-mix(in srgb, var(--bg) 85%, var(--accent) 4%);
+  --bg-navbar: color-mix(in srgb, var(--bg) 82%, transparent);
 
-  /* Testo */
-  --text-color: #1a1a1a;
-  --text-muted: #6b7280;
-  --text-muted-light: #9ca3af;
-  --text-on-primary: #ffffff;
-  --text-terminal: #e0e0e0;
-  --text-terminal-muted: #b0b0b0;
-  --accent-terminal: #6ee7b7;
+  --text-color: var(--text);
+  --text-muted: var(--text-dim);
+  --text-muted-light: color-mix(in srgb, var(--text-dim) 75%, transparent);
+  --text-on-primary: var(--bg);
 
-  /* Bordi e divisioni */
-  --border-color: #e5e7eb;
-  --border-light: #eee;
-  --border-dark: #333;
+  --border-color: var(--accent-dim);
+  --border-light: color-mix(in srgb, var(--accent-dim) 55%, transparent);
+  --border-dark: color-mix(in srgb, var(--accent) 28%, transparent);
 
-  /* Ombre */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
-  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-card: 0 4px 18px rgba(0, 0, 0, 0.28);
+  --shadow-card-hover: 0 8px 28px rgba(0, 0, 0, 0.35);
 
   /* Spacing */
   --spacing-xs: 0.25rem;
@@ -51,8 +41,7 @@
   --spacing-2xl: 3rem;
   --spacing-section: 3rem;
   --spacing-page: 1.5rem;
-  /** Distanza tra sezioni principali (Hero, Progetti, About, Contatti) */
-  --section-gap: 5rem;
+  --section-gap: 3rem;
 
   /* Raggio bordi */
   --radius-sm: 6px;
@@ -62,5 +51,5 @@
   /* Layout */
   --content-max-width: 1200px;
   --content-narrow: 720px;
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: var(--font-hud-body);
 }

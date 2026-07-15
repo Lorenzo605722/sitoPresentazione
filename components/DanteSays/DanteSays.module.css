@@ -3,19 +3,15 @@
   width: 100%;
   max-width: 420px;
   padding: 1.25rem var(--spacing-lg);
-  background: var(--bg-terminal);
-  color: var(--text-terminal);
+  background: var(--bg-card);
+  color: var(--text-color);
   border-radius: var(--radius-lg);
-  font-family: "Consolas", "Monaco", "JetBrains Mono", monospace;
   font-size: 0.9375rem;
   line-height: 1.6;
-  box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--border-dark);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-color);
 }
 
-/* Nuvoletta: triangolino in basso a sinistra */
 .box::after {
   content: "";
   position: absolute;
@@ -25,8 +21,8 @@
   height: 0;
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
-  border-top: 12px solid var(--bg-terminal);
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+  border-top: 12px solid var(--bg-card);
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08));
 }
 
 .header {
@@ -35,11 +31,11 @@
   gap: var(--spacing-sm);
   margin-bottom: var(--spacing-md);
   padding-bottom: var(--spacing-sm);
-  border-bottom: 1px solid var(--border-dark);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .prompt {
-  color: var(--accent-terminal);
+  color: var(--primary-color);
   font-weight: 600;
   font-size: 0.8125rem;
 }
@@ -48,7 +44,7 @@
   display: inline-block;
   width: 8px;
   height: 1em;
-  background: var(--accent-terminal);
+  background: var(--primary-color);
   animation: blink 1s step-end infinite;
   vertical-align: text-bottom;
 }
@@ -62,15 +58,14 @@
 .quote {
   margin: 0;
   font-style: italic;
-  color: var(--text-terminal-muted);
+  color: var(--text-muted);
 }
 
 .quote strong {
-  color: var(--text-terminal);
+  color: var(--text-color);
   font-style: normal;
 }
 
-/* Mobile: box a tutta larghezza, padding ridotto */
 @media (max-width: 640px) {
   .box {
     padding: var(--spacing-md) var(--spacing-page);

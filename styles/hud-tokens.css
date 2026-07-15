@@ -1,0 +1,91 @@
+/**
+ * HUD spaziale ciano/olografico – design tokens
+ * Fondamenta del nuovo tema. Non ancora applicati ai componenti.
+ *
+ * Colori: usare --bg, --accent, --text, ecc.
+ * Font:   --font-hud-title (Rajdhani), --font-hud-body (Space Mono)
+ *         richiedono le variabili next/font impostate in app/layout.tsx
+ */
+
+:root {
+  /* ── Colori ── */
+  --bg: #05080d;
+  --bg-panel: rgba(9, 16, 26, 0.55);
+  --accent: #4ce4ff;
+  --accent-dim: rgba(76, 228, 255, 0.35);
+  --text: #e7f6fb;
+  --text-dim: #7c93a0;
+
+  /* ── Frammenti reattore (HeroSpace) ── */
+  --shard-highlight: color-mix(in srgb, var(--text) 95%, var(--accent));
+  --shard-fill: color-mix(in srgb, var(--accent) 60%, transparent);
+  --shard-glow: color-mix(in srgb, var(--accent) 50%, transparent);
+
+  /* Rame — blocchi spire (indici pari) */
+  --segment-outer-face: #f8c060;
+  --segment-mid-face: #eca048;
+  --segment-inner-face: #d08038;
+  --segment-inner-deep: #b06830;
+  --segment-copper-frame: rgba(90, 50, 25, 0.55);
+  --segment-frame: #1a2840;
+  --segment-frame-edge: #2a4060;
+  --segment-edge-highlight: rgba(255, 235, 170, 0.65);
+  --segment-edge-glow: #7dd3fc;
+  --segment-inner-edge: #e0f2fe;
+  --segment-gap-shadow: rgba(0, 0, 0, 0.15);
+  --segment-track-glow: rgba(100, 210, 255, 0.25);
+  --segment-track-mid: #0e1522;
+  --segment-track-outer: #060810;
+  --segment-seam-flash: rgba(186, 230, 253, 0.95);
+  --segment-specular: rgba(255, 240, 180, 0.55);
+  --segment-coil-shadow: rgba(80, 45, 15, 0.08);
+  --segment-bolt-face: #dce4ee;
+  --segment-bolt-shadow: #5a6478;
+  --segment-bolt-rim: #141c28;
+
+  /* Pannelli energetici alternati al rame */
+  --segment-panel-top: #141e2e;
+  --segment-panel-mid: #0c1220;
+  --segment-panel-deep: #060810;
+  --segment-panel-glow: rgba(120, 220, 255, 0.28);
+  --segment-panel-wire: rgba(190, 210, 230, 0.22);
+
+  /* Corona metallica tra anello e plasma */
+  --arc-collar: #0e1524;
+  --arc-collar-rim: rgba(26, 40, 64, 0.7);
+  --arc-collar-inset: rgba(0, 0, 0, 0.75);
+
+  /* ── Disco interno Arc Reactor (plasma incandescente) ── */
+  --arc-core-hot: #ffffff;
+  --arc-core-mid: #bae6fd;
+  --arc-core-blue: #38bdf8;
+  --arc-core-deep: #0ea5e9;
+  --arc-core-outer: #060a10;
+  --arc-core-halo: rgba(56, 189, 248, 0.42);
+  --arc-ignite-duration: 1.6s;
+  --arc-core-glow-weak: 0 0 10px 2px rgba(186, 230, 253, 0.22);
+  --arc-core-glow-mid:
+    0 0 24px 8px rgba(56, 189, 248, 0.38),
+    0 0 44px 14px rgba(14, 165, 233, 0.14);
+  --arc-core-glow-strong:
+    0 0 18px 5px rgba(255, 255, 255, 0.5),
+    0 0 44px 16px rgba(56, 189, 248, 0.42),
+    0 0 72px 28px rgba(14, 165, 233, 0.18);
+
+  /* Punto centrale plasma */
+  --core-plasma: #f0f9ff;
+  --core-plasma-glow: rgba(186, 230, 253, 0.85);
+  --core-ring-border: rgba(224, 242, 254, 0.92);
+  --core-ring-track: rgba(14, 165, 233, 0.12);
+
+  /* ── Tipografia (stack semantici) ── */
+  --font-hud-title: var(--font-rajdhani), system-ui, sans-serif;
+  --font-hud-body: var(--font-space-mono), ui-monospace, monospace;
+
+  /* ── Pesi disponibili (Rajdhani: 500/600/700 · Space Mono: 400/700) ── */
+  --font-hud-weight-medium: 500;
+  --font-hud-weight-semibold: 600;
+  --font-hud-weight-bold: 700;
+  --font-hud-weight-body: 400;
+  --font-hud-weight-body-bold: 700;
+}

@@ -31,24 +31,16 @@ const LOADING_BEFORE_BLOCK_1_MS = 1500;
 const LOADING_BEFORE_BLOCK_2_MS = 1200;
 const LOADING_LAST_BLOCK_MS = 1000;
 const LOADING_PERCENT_DISPLAY_MS = 300;
-const SPINNER_INTERVAL_MS = 150;
-
-const SPINNER_FRAMES = ["|", "/", "-", "\\"];
 
 type BetweenBlockLoading = 1 | 2 | null;
 
 export function HeroSection() {
-  // True dopo 3s: mostra 100% e sblocca il typewriter del primo blocco
   const [loadingComplete, setLoadingComplete] = useState(false);
-  // Caricamento tra blocchi: 1 = prima di Metodologia, 2 = prima di Filosofia
   const [betweenBlockLoading, setBetweenBlockLoading] = useState<BetweenBlockLoading>(null);
-  // True quando lo spinner tra blocchi è finito → mostra 100%, poi si avvia il blocco successivo
   const [betweenBlockLoadingComplete, setBetweenBlockLoadingComplete] = useState(false);
-  const [spinnerFrame, setSpinnerFrame] = useState(0);
   const [activeBlockIndex, setActiveBlockIndex] = useState(0);
   const [visibleChars, setVisibleChars] = useState(0);
   const [sequenceComplete, setSequenceComplete] = useState(false);
-  // Mostra il pulsante --read-more dopo il blocco Filosofia; al clic avvia il caricamento dell'ultimo blocco
   const [readMoreVisible, setReadMoreVisible] = useState(false);
   const [loadingLastBlock, setLoadingLastBlock] = useState(false);
   const [loadingLastBlockComplete, setLoadingLastBlockComplete] = useState(false);
@@ -58,26 +50,16 @@ export function HeroSection() {
   const displayedText = activeText.slice(0, visibleChars);
   const isTypingCurrentBlock = !sequenceComplete && visibleChars < activeText.length;
   const hasMoreBlocks = activeBlockIndex < SECTIONS.length - 1;
-  const spinnerChar = SPINNER_FRAMES[spinnerFrame % SPINNER_FRAMES.length];
-  const isSpinnerActive =
+  const isWaiting =
     !loadingComplete ||
     (betweenBlockLoading !== null && !betweenBlockLoadingComplete) ||
     (loadingLastBlock && !loadingLastBlockComplete);
 
-  // Timer iniziale 3s
   useEffect(() => {
     const timer = setTimeout(() => setLoadingComplete(true), LOADING_DURATION_MS);
     return () => clearTimeout(timer);
   }, []);
 
-  // Spinner: attivo durante loading iniziale o durante loading tra blocchi
-  useEffect(() => {
-    if (!isSpinnerActive) return;
-    const interval = setInterval(() => setSpinnerFrame((f) => f + 1), SPINNER_INTERVAL_MS);
-    return () => clearInterval(interval);
-  }, [isSpinnerActive]);
-
-  // Quando un blocco termina, avvia il loading per il blocco successivo (solo per blocchi 1 e 2)
   useEffect(() => {
     if (sequenceComplete || !hasMoreBlocks) return;
     if (activeBlockIndex === 0 && !loadingComplete) return;
@@ -91,10 +73,8 @@ export function HeroSection() {
     if (activeBlockIndex === 1) {
       setBetweenBlockLoading(2);
     }
-    // Blocco 2 → 3 gestito dall'effetto typewriter sotto (nessun loading tra blocchi)
   }, [activeBlockIndex, visibleChars, activeText.length, hasMoreBlocks, sequenceComplete, loadingComplete, betweenBlockLoading]);
 
-  // Timer per loading tra blocchi (1.5s per Metodologia, 1.2s per Filosofia)
   useEffect(() => {
     if (betweenBlockLoading === null) return;
     const duration = betweenBlockLoading === 1 ? LOADING_BEFORE_BLOCK_1_MS : LOADING_BEFORE_BLOCK_2_MS;
@@ -102,7 +82,6 @@ export function HeroSection() {
     return () => clearTimeout(timer);
   }, [betweenBlockLoading]);
 
-  // Dopo "100%" tra blocchi, breve pausa poi avanza al blocco successivo
   useEffect(() => {
     if (!betweenBlockLoadingComplete || betweenBlockLoading === null) return;
     const timer = setTimeout(() => {
@@ -115,14 +94,12 @@ export function HeroSection() {
     return () => clearTimeout(timer);
   }, [betweenBlockLoadingComplete, betweenBlockLoading]);
 
-  // Timer per loading ultimo blocco (--read-more cliccato)
   useEffect(() => {
     if (!loadingLastBlock) return;
     const timer = setTimeout(() => setLoadingLastBlockComplete(true), LOADING_LAST_BLOCK_MS);
     return () => clearTimeout(timer);
   }, [loadingLastBlock]);
 
-  // Dopo 100% loading ultimo blocco, avvia typewriter Risultati
   useEffect(() => {
     if (!loadingLastBlockComplete) return;
     const timer = setTimeout(() => {
@@ -139,10 +116,8 @@ export function HeroSection() {
     setLoadingLastBlock(true);
   };
 
-  // Typewriter: avanza solo se non siamo in attesa di loading tra blocchi
   useEffect(() => {
-    if (sequenceComplete) return;
-    if (activeBlockIndex === 0 && !loadingComplete) return;
+    if (sequenceComplete || isWaiting) return;
     if (betweenBlockLoading !== null) return;
 
     if (visibleChars < activeText.length) {
@@ -151,16 +126,14 @@ export function HeroSection() {
     }
 
     if (activeBlockIndex === 0 || activeBlockIndex === 1) {
-      // Gestito dall'effetto "Quando un blocco termina" sopra
       return;
     }
     if (activeBlockIndex === 2 && hasMoreBlocks) {
-      // In attesa di --read-more: mostra il pulsante se non ancora visibile
       if (!readMoreVisible && !loadingLastBlock) setReadMoreVisible(true);
       return;
     }
     setSequenceComplete(true);
-  }, [activeBlockIndex, visibleChars, activeText.length, hasMoreBlocks, sequenceComplete, loadingComplete, betweenBlockLoading, readMoreVisible, loadingLastBlock]);
+  }, [activeBlockIndex, visibleChars, activeText.length, hasMoreBlocks, sequenceComplete, betweenBlockLoading, readMoreVisible, loadingLastBlock, isWaiting]);
 
   return (
     <section className={styles.hero} aria-label="Presentazione">
@@ -179,137 +152,64 @@ export function HeroSection() {
         </h1>
         <p className={styles.role}>Junior TS Developer</p>
 
-        <div className={styles.terminal} role="region" aria-label="Biografia in stile terminale">
-          <div className={styles.terminalHeader}>
-            <span className={styles.dots} aria-hidden>
-              <span className={styles.dotRed} />
-              <span className={styles.dotYellow} />
-              <span className={styles.dotGreen} />
-            </span>
-            <span className={styles.terminalTitle}>lorenzo@hero ~</span>
-          </div>
-          <div className={styles.terminalBody}>
-            <div className={styles.terminalLine}>
-              <span className={styles.prompt}>$</span>{" "}
-              <span className={styles.command}>cat bio.txt</span>
+        <div className={styles.bioPanel} role="region" aria-label="Biografia">
+          <div className={styles.bioContent}>
+            <div className={styles.outputBlock}>
+              <span className={styles.outputLabel}>{SECTIONS[0].label}:</span>{" "}
+              <span className={styles.outputText}>
+                {activeBlockIndex > 0 ? SECTIONS[0].text : displayedText}
+                {activeBlockIndex === 0 && isTypingCurrentBlock && (
+                  <span className={styles.cursorText} aria-hidden />
+                )}
+              </span>
             </div>
-            <div className={styles.terminalLineSystem}>
-              [SYSTEM]: loading_history...
-              {loadingComplete ? (
-                <span className={styles.loadingPercent}> 100%</span>
-              ) : (
-                <span className={styles.spinner} aria-hidden> {spinnerChar}</span>
-              )}
-            </div>
-            <div className={styles.terminalOutput}>
-              {/* Blocco 0 - Origine */}
+
+            {activeBlockIndex >= 1 && (
               <div className={styles.outputBlock}>
-                <span className={styles.outputLabel}>{SECTIONS[0].label}:</span>{" "}
+                <span className={styles.outputLabel}>{SECTIONS[1].label}:</span>{" "}
                 <span className={styles.outputText}>
-                  {activeBlockIndex > 0
-                    ? SECTIONS[0].text
-                    : displayedText}
-                  {activeBlockIndex === 0 && isTypingCurrentBlock && (
-                    <span className={styles.cursorTerminal} aria-hidden />
+                  {activeBlockIndex > 1 ? SECTIONS[1].text : displayedText}
+                  {activeBlockIndex === 1 && isTypingCurrentBlock && (
+                    <span className={styles.cursorText} aria-hidden />
                   )}
                 </span>
               </div>
+            )}
 
-              {/* [SYSTEM]: loading_metodologia... (prima del blocco 1) */}
-              {(betweenBlockLoading === 1 || activeBlockIndex >= 1) && (
-                <div className={styles.terminalLineSystem}>
-                  [SYSTEM]: loading_metodologia...
-                  {betweenBlockLoading === 1 ? (
-                    betweenBlockLoadingComplete ? (
-                      <span className={styles.loadingPercent}> 100%</span>
-                    ) : (
-                      <span className={styles.spinner} aria-hidden> {spinnerChar}</span>
-                    )
-                  ) : (
-                    <span className={styles.loadingPercent}> 100%</span>
+            {activeBlockIndex >= 2 && (
+              <div className={styles.outputBlock}>
+                <span className={styles.outputLabel}>{SECTIONS[2].label}:</span>{" "}
+                <span className={styles.outputText}>
+                  {activeBlockIndex > 2 ? SECTIONS[2].text : displayedText}
+                  {activeBlockIndex === 2 && isTypingCurrentBlock && (
+                    <span className={styles.cursorText} aria-hidden />
                   )}
-                </div>
-              )}
+                </span>
+              </div>
+            )}
 
-              {/* Blocco 1 - Metodologia (dopo loading_metodologia 100%) */}
-              {activeBlockIndex >= 1 && (
-                <div className={styles.outputBlock}>
-                  <span className={styles.outputLabel}>{SECTIONS[1].label}:</span>{" "}
-                  <span className={styles.outputText}>
-                    {activeBlockIndex > 1 ? SECTIONS[1].text : displayedText}
-                    {activeBlockIndex === 1 && isTypingCurrentBlock && (
-                      <span className={styles.cursorTerminal} aria-hidden />
-                    )}
-                  </span>
-                </div>
-              )}
+            {readMoreVisible && (
+              <div className={styles.readMoreWrap}>
+                <button
+                  type="button"
+                  className={styles.readMoreBtn}
+                  onClick={handleReadMore}
+                  aria-label="Carica ultimo blocco Risultati"
+                >
+                  --read-more
+                </button>
+              </div>
+            )}
 
-              {/* [SYSTEM]: loading_filosofia... (prima del blocco 2) */}
-              {(betweenBlockLoading === 2 || activeBlockIndex >= 2) && (
-                <div className={styles.terminalLineSystem}>
-                  [SYSTEM]: loading_filosofia...
-                  {betweenBlockLoading === 2 ? (
-                    betweenBlockLoadingComplete ? (
-                      <span className={styles.loadingPercent}> 100%</span>
-                    ) : (
-                      <span className={styles.spinner} aria-hidden> {spinnerChar}</span>
-                    )
-                  ) : (
-                    <span className={styles.loadingPercent}> 100%</span>
-                  )}
-                </div>
-              )}
-
-              {/* Blocco 2 - Filosofia (dopo loading_filosofia 100%) */}
-              {activeBlockIndex >= 2 && (
-                <div className={styles.outputBlock}>
-                  <span className={styles.outputLabel}>{SECTIONS[2].label}:</span>{" "}
-                  <span className={styles.outputText}>
-                    {activeBlockIndex > 2 ? SECTIONS[2].text : displayedText}
-                    {activeBlockIndex === 2 && isTypingCurrentBlock && (
-                      <span className={styles.cursorTerminal} aria-hidden />
-                    )}
-                  </span>
-                </div>
-              )}
-
-              {/* Pulsante --read-more: mostra dopo Filosofia, al clic avvia caricamento ultimo blocco */}
-              {readMoreVisible && (
-                <div className={styles.readMoreWrap}>
-                  <button
-                    type="button"
-                    className={styles.readMoreBtn}
-                    onClick={handleReadMore}
-                    aria-label="Carica ultimo blocco Risultati"
-                  >
-                    --read-more
-                  </button>
-                </div>
-              )}
-
-              {/* [SYSTEM]: loading_risultati... (dopo clic su --read-more) */}
-              {(loadingLastBlock || loadingLastBlockComplete) && (
-                <div className={styles.terminalLineSystem}>
-                  [SYSTEM]: loading_risultati...
-                  {loadingLastBlockComplete ? (
-                    <span className={styles.loadingPercent}> 100%</span>
-                  ) : (
-                    <span className={styles.spinner} aria-hidden> {spinnerChar}</span>
-                  )}
-                </div>
-              )}
-
-              {/* Blocco 3 - Risultati */}
-              {activeBlockIndex >= 3 && (
-                <div className={styles.outputBlock}>
-                  <span className={styles.outputLabel}>{SECTIONS[3].label}:</span>{" "}
-                  <span className={styles.outputText}>
-                    {displayedText}
-                    {isTypingCurrentBlock && <span className={styles.cursorTerminal} aria-hidden />}
-                  </span>
-                </div>
-              )}
-            </div>
+            {activeBlockIndex >= 3 && (
+              <div className={styles.outputBlock}>
+                <span className={styles.outputLabel}>{SECTIONS[3].label}:</span>{" "}
+                <span className={styles.outputText}>
+                  {displayedText}
+                  {isTypingCurrentBlock && <span className={styles.cursorText} aria-hidden />}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>
