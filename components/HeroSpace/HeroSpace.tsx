@@ -150,7 +150,13 @@ export function HeroSpace({
   const handleCorePointerDown = (event: PointerEvent<HTMLButtonElement>) => {
     if (!done || reduceMotion) return;
     event.preventDefault();
-    event.currentTarget.setPointerCapture(event.pointerId);
+
+    try {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    } catch {
+      /* capture non supportata: si continua comunque con press/release */
+    }
+
     cancelAnimationFrame(coreChargeRafRef.current);
     corePressStartRef.current = performance.now();
     corePressOriginRef.current = coreChargeRef.current;
@@ -169,9 +175,20 @@ export function HeroSpace({
 
   const handleCorePointerUp = (event: PointerEvent<HTMLButtonElement>) => {
     if (!done || reduceMotion) return;
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId);
+
+    try {
+      if (event.currentTarget?.hasPointerCapture?.(event.pointerId)) {
+        event.currentTarget.releasePointerCapture(event.pointerId);
+      }
+    } catch {
+      /* già rilasciato o target non più valido */
     }
+
+    stopCoreCharge(true);
+  };
+
+  const handleCoreLostCapture = () => {
+    if (!done || reduceMotion) return;
     stopCoreCharge(true);
   };
 
@@ -190,7 +207,7 @@ export function HeroSpace({
 
   const reactorChargeStyle = {
     ...reactorStyle,
-    "--core-charge": coreCharge,
+    "--core-charge": String(coreCharge),
   } as CSSProperties;
 
   return (
@@ -251,7 +268,7 @@ export function HeroSpace({
               onPointerDown={handleCorePointerDown}
               onPointerUp={handleCorePointerUp}
               onPointerCancel={handleCorePointerUp}
-              onLostPointerCapture={handleCorePointerUp}
+              onLostPointerCapture={handleCoreLostCapture}
             >
               <div
                 className={[

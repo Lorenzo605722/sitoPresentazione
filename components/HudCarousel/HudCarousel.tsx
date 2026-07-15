@@ -105,7 +105,7 @@ export function HudCarousel({ images, label = "Screenshot moduli" }: HudCarousel
         <button
           type="button"
           className={`${styles.nav} ${styles.navPrev}`}
-          onClick={previous}
+          onClick={() => previous()}
           aria-label="Screenshot precedente"
         >
           ‹
@@ -113,7 +113,7 @@ export function HudCarousel({ images, label = "Screenshot moduli" }: HudCarousel
         <button
           type="button"
           className={`${styles.nav} ${styles.navNext}`}
-          onClick={next}
+          onClick={() => next()}
           aria-label="Screenshot successivo"
         >
           ›
